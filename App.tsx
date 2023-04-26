@@ -1,20 +1,32 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { extendTheme, NativeBaseProvider } from "native-base";
+import React from "react";
+import { Platform } from "react-native";
+import { setupURLPolyfill } from "react-native-url-polyfill";
+import { Provider } from "react-redux";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+import { FooterNavigation } from "./components/FooterNavigation/FooterNavigation";
+import { InitAppData } from "./components/InitAppData/InitAppData";
+import { store } from "./store/store";
+
+if (Platform.OS !== "web") {
+  setupURLPolyfill();
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+// extend the theme
+const theme = extendTheme({
+  useSystemColorMode: false,
+  initialColorMode: "dark",
 });
+
+const App: React.FC = () => {
+  return (
+    <NativeBaseProvider theme={theme}>
+      <Provider store={store}>
+        <InitAppData />
+        <FooterNavigation />
+      </Provider>
+    </NativeBaseProvider>
+  );
+};
+
+export default App;
