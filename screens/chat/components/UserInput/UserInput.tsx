@@ -6,7 +6,8 @@ import { Platform } from "react-native";
 
 import { useAppDispatch } from "../../../../hooks/useAppDispatch";
 import { useAppSelector } from "../../../../hooks/useAppSelector";
-import { selectIncomingMessage, selectMessages, sendChatMessage } from "../../../../store/messages/messages";
+import { selectIncomingMessage, selectMessages } from "../../../../store/messages/messages";
+import { useSendChatMessage } from "../../hooks/useSendChatMessage";
 import { MessageBlock } from "../MessageBlock/MessageBlock";
 
 export const UserInput: React.FC = () => {
@@ -17,10 +18,12 @@ export const UserInput: React.FC = () => {
 
   const incomingMessage = useAppSelector(selectIncomingMessage);
 
+  const sendChatMessage = useSendChatMessage();
+
   const handlePressSubmit = React.useCallback(async () => {
     try {
       setInputText("");
-      await dispatch(sendChatMessage(inputText)).unwrap();
+      await sendChatMessage(inputText);
     } catch (e: any) {
       setInputText(inputText);
       alert(e.message);
