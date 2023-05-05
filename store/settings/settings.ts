@@ -1,5 +1,7 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createAsyncThunk, createReducer, createSelector } from "@reduxjs/toolkit";
 import * as SecureStore from "expo-secure-store";
+import { Platform } from "react-native";
 
 import type { RootState } from "../store";
 
@@ -12,13 +14,24 @@ const initialState: SettingsState = {
 };
 
 export const initApiKey = createAsyncThunk("store/settings/initApiKey", async (_, thunkAPI) => {
-  const result = await SecureStore.getItemAsync("API_KEY");
+  let result: string | null;
+  if (Platform.OS === "web") {
+    result = await AsyncStorage.getItem("API_KEY");
+  } else {
+    result = await SecureStore.getItemAsync("API_KEY");
+  }
+
   await thunkAPI.dispatch(updateApiKey(result || ""));
 });
 
-export const updateApiKey = createAsyncThunk("store/settings/updateApiKey", async (arg: string) => {
-  await SecureStore.setItemAsync("API_KEY", arg);
-  return arg;
+export const updateApiKey = createAsyncThunk("store/settings/updateApiKey", async (apiKey: string) => {
+  if (Platform.OS === "web") {
+    await AsyncStorage.setItem("API_KEY", apiKey);
+  } else {
+    await SecureStore.setItemAsync("API_KEY", apiKey);
+  }
+
+  return apiKey;
 });
 
 export const settingsReducer = createReducer(initialState, (builder) => {
