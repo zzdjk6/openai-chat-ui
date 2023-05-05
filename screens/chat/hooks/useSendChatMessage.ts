@@ -1,9 +1,7 @@
 import { ChatCompletionRequestMessage } from "openai/api";
 import React from "react";
-import { Platform } from "react-native";
 
-import { useChat } from "./useChat";
-import { useChatInStream } from "./useChatInStream";
+import { useStreamChat } from "./useStreamChat";
 import { useAppDispatch } from "../../../hooks/useAppDispatch";
 import { useAppStore } from "../../../hooks/useAppStore";
 import { addMessage, selectMessages } from "../../../store/messages/messages";
@@ -13,8 +11,7 @@ export const useSendChatMessage = () => {
   const store = useAppStore();
   const dispatch = useAppDispatch();
 
-  const chat = useChat();
-  const chatInStream = useChatInStream();
+  const streamChat = useStreamChat();
 
   const sendChatMessage = React.useCallback(
     async (inputText: string) => {
@@ -32,13 +29,9 @@ export const useSendChatMessage = () => {
       const messages = selectMessages(store.getState());
       const inputMessages = [...messages, newUserMessage];
 
-      if (Platform.OS === "web") {
-        await chatInStream({ apiKey, inputMessages });
-      } else {
-        await chat({ apiKey, inputMessages });
-      }
+      await streamChat({ apiKey, inputMessages });
     },
-    [chat, chatInStream, dispatch, store]
+    [streamChat, dispatch, store]
   );
 
   return sendChatMessage;

@@ -12,7 +12,7 @@ import {
   selectIncomingMessage,
 } from "../../../store/messages/messages";
 
-export const useChatInStream = () => {
+export const useStreamChat = () => {
   const dispatch = useAppDispatch();
   const store = useAppStore();
 
@@ -25,7 +25,7 @@ export const useChatInStream = () => {
 
       try {
         dispatch(appendIncomingMessage("..."));
-        await chatService.chatInStream({
+        await chatService.streamChat({
           messages: inputMessages,
           onChunk: (chunk) => {
             if (!isChunkArrived) {
