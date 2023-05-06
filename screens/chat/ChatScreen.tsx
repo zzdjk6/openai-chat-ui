@@ -1,23 +1,16 @@
-import { MaterialIcons } from "@expo/vector-icons";
-import { Box, Center, Icon, IconButton, ScrollView, VStack } from "native-base";
+import { Box, Center, HStack, ScrollView, VStack } from "native-base";
 import React from "react";
 
+import { ClearChatButton } from "./components/ClearChatButton/ClearChatButton";
 import { Messages } from "./components/Messages/Messages";
+import { ModelSelect } from "./components/ModelSelect/ModelSelect";
 import { UserInput } from "./components/UserInput/UserInput";
 import { ScreenTitle } from "../../components/ScreenTitle/ScreenTitle";
-import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { useAppSelector } from "../../hooks/useAppSelector";
-import { clearMessage } from "../../store/messages/messages";
-import { selectApiKey } from "../../store/settings/settings";
+import { selectApiKey } from "../../store/settings/settings.selectors";
 
 export const ChatScreen: React.FC = () => {
-  const dispatch = useAppDispatch();
-
   const apiKey = useAppSelector(selectApiKey);
-
-  const handlePressDelete = React.useCallback(() => {
-    dispatch(clearMessage());
-  }, [dispatch]);
 
   return (
     <VStack flexGrow={1}>
@@ -25,12 +18,10 @@ export const ChatScreen: React.FC = () => {
         <ScreenTitle
           title="Chat"
           buttons={
-            <>
-              <IconButton
-                icon={<Icon as={MaterialIcons} name="delete" size="sm" color="white" />}
-                onPress={handlePressDelete}
-              />
-            </>
+            <HStack space={2}>
+              <ModelSelect />
+              <ClearChatButton />
+            </HStack>
           }
         />
       </Box>

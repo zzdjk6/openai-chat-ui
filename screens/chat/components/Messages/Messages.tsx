@@ -2,7 +2,7 @@ import { VStack } from "native-base";
 import React from "react";
 
 import { useAppSelector } from "../../../../hooks/useAppSelector";
-import { selectMessages } from "../../../../store/messages/messages";
+import { selectMessages } from "../../../../store/messages/messages.selectors";
 import { AssistantMessage } from "../AssistantMessage/AssistantMessage";
 import { IncomingMessage } from "../IncomingMessage/IncomingMessage";
 import { UserMessage } from "../UserMessage/UserMessage";

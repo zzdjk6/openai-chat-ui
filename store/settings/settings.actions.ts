@@ -1,17 +1,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { createAsyncThunk, createReducer, createSelector } from "@reduxjs/toolkit";
+import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import * as SecureStore from "expo-secure-store";
 import { Platform } from "react-native";
 
-import type { RootState } from "../store";
-
-type SettingsState = {
-  apiKey: string;
-};
-
-const initialState: SettingsState = {
-  apiKey: "",
-};
+import { ChatModel } from "../../services/openai/ChatService.types";
 
 export const initApiKey = createAsyncThunk("store/settings/initApiKey", async (_, thunkAPI) => {
   let result: string | null;
@@ -34,14 +26,4 @@ export const updateApiKey = createAsyncThunk("store/settings/updateApiKey", asyn
   return apiKey;
 });
 
-export const settingsReducer = createReducer(initialState, (builder) => {
-  builder.addCase(updateApiKey.fulfilled, (state, action) => {
-    state.apiKey = action.payload;
-  });
-});
-
-export const selectSettingsState = (state: RootState) => state.settings;
-
-export const selectApiKey = createSelector([selectSettingsState], (state) => {
-  return state.apiKey;
-});
+export const updateChatModel = createAction<ChatModel>("store/settings/updateChatModel");

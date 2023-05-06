@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import { messagesReducer } from "./messages/messages";
-import { settingsReducer } from "./settings/settings";
+import { messagesReducer } from "./messages/messages.reducer";
+import { settingsReducer } from "./settings/settings.reducer";
 
 export const store = configureStore({
   reducer: {

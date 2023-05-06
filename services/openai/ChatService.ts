@@ -2,6 +2,8 @@ import get from "lodash/get";
 import trim from "lodash/trim";
 import { ChatCompletionRequestMessage } from "openai/api";
 
+import { ChatConfig } from "./ChatService.types";
+
 export class ChatService {
   private readonly apiKey: string;
   private readonly commonHeaders: Record<string, string>;
@@ -19,9 +21,14 @@ export class ChatService {
    *
    * @param args
    */
-  public async streamChat(args: { messages: ChatCompletionRequestMessage[]; onChunk: (chunk: string) => void }) {
-    const { messages, onChunk } = args;
+  public async streamChat(args: {
+    messages: ChatCompletionRequestMessage[];
+    config: ChatConfig;
+    onChunk: (chunk: string) => void;
+  }) {
+    const { messages, config, onChunk } = args;
 
+    // This is required when running on native device
     const extraOptions = {
       reactNative: { textStreaming: true },
     };
@@ -30,12 +37,9 @@ export class ChatService {
       method: "POST",
       headers: this.commonHeaders,
       body: JSON.stringify({
-        model: "gpt-3.5-turbo",
-        max_tokens: 2048,
-        temperature: 0.7,
-        top_p: 1,
+        ...config,
         stream: true,
-        messages: [{ role: "system", content: "You will always provide response in markdown format" }, ...messages],
+        messages,
       }),
       ...extraOptions,
     });

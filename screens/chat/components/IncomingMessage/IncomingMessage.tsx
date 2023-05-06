@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useAppSelector } from "../../../../hooks/useAppSelector";
-import { selectIncomingMessage } from "../../../../store/messages/messages";
+import { selectIncomingMessage } from "../../../../store/messages/messages.selectors";
 import { AssistantMessage } from "../AssistantMessage/AssistantMessage";
 
 export const IncomingMessage: React.FC = () => {

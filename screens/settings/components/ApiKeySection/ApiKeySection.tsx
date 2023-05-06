@@ -3,7 +3,7 @@ import { Box, Button, HStack, Text } from "native-base";
 import React from "react";
 
 import { useAppSelector } from "../../../../hooks/useAppSelector";
-import { selectApiKey } from "../../../../store/settings/settings";
+import { selectApiKey } from "../../../../store/settings/settings.selectors";
 import { ApiKeyUpdateDialog } from "../ApiKeyUpdateDialog/ApiKeyUpdateDialog";
 
 export const ApiKeySection: React.FC = () => {

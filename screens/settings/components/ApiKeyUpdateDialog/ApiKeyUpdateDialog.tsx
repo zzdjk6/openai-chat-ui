@@ -3,7 +3,8 @@ import React from "react";
 
 import { useAppDispatch } from "../../../../hooks/useAppDispatch";
 import { useAppStore } from "../../../../hooks/useAppStore";
-import { selectApiKey, updateApiKey } from "../../../../store/settings/settings";
+import { updateApiKey } from "../../../../store/settings/settings.actions";
+import { selectApiKey } from "../../../../store/settings/settings.selectors";
 
 type ApiKeyUpdateDialogProps = {
   isOpen: boolean;

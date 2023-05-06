@@ -6,7 +6,7 @@ import { Platform } from "react-native";
 
 import { useAppDispatch } from "../../../../hooks/useAppDispatch";
 import { useAppSelector } from "../../../../hooks/useAppSelector";
-import { selectIncomingMessage, selectMessages } from "../../../../store/messages/messages";
+import { selectIncomingMessage, selectMessages } from "../../../../store/messages/messages.selectors";
 import { useSendChatMessage } from "../../hooks/useSendChatMessage";
 import { MessageBlock } from "../MessageBlock/MessageBlock";
 

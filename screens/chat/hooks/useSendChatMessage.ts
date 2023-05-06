@@ -4,8 +4,9 @@ import React from "react";
 import { useStreamChat } from "./useStreamChat";
 import { useAppDispatch } from "../../../hooks/useAppDispatch";
 import { useAppStore } from "../../../hooks/useAppStore";
-import { addMessage, selectMessages } from "../../../store/messages/messages";
-import { selectApiKey } from "../../../store/settings/settings";
+import { addMessage } from "../../../store/messages/messages.actions";
+import { selectMessages } from "../../../store/messages/messages.selectors";
+import { selectApiKey } from "../../../store/settings/settings.selectors";
 
 export const useSendChatMessage = () => {
   const store = useAppStore();
