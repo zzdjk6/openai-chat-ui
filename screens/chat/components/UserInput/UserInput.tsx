@@ -1,34 +1,36 @@
 import { AntDesign } from "@expo/vector-icons";
-import isEmpty from "lodash/isEmpty";
 import { Box, Button, Circle, KeyboardAvoidingView, TextArea, VStack } from "native-base";
 import React from "react";
 import { Platform } from "react-native";
 
 import { useAppDispatch } from "../../../../hooks/useAppDispatch";
 import { useAppSelector } from "../../../../hooks/useAppSelector";
-import { selectIncomingMessage, selectMessages } from "../../../../store/messages/messages.selectors";
+import { useAppStore } from "../../../../hooks/useAppStore";
+import { updateUserInput } from "../../../../store/messages/messages.actions";
+import { selectIncomingMessage, selectUserInput } from "../../../../store/messages/messages.selectors";
 import { useSendChatMessage } from "../../hooks/useSendChatMessage";
 import { MessageBlock } from "../MessageBlock/MessageBlock";
 
 export const UserInput: React.FC = () => {
   const dispatch = useAppDispatch();
-  const messages = useAppSelector(selectMessages);
-
-  const [inputText, setInputText] = React.useState(isEmpty(messages) ? "Tell me about you in 20 words" : "");
+  const store = useAppStore();
 
   const incomingMessage = useAppSelector(selectIncomingMessage);
-
   const sendChatMessage = useSendChatMessage();
+  const inputText = useAppSelector(selectUserInput);
 
   const handlePressSubmit = React.useCallback(async () => {
+    const bufferedInputText = selectUserInput(store.getState());
     try {
-      setInputText("");
-      await sendChatMessage(inputText);
+      dispatch(updateUserInput(""));
+      await sendChatMessage(bufferedInputText);
     } catch (e: any) {
-      setInputText(inputText);
+      dispatch(updateUserInput(bufferedInputText));
       alert(e.message);
     }
-  }, [dispatch, inputText]);
+  }, [dispatch, sendChatMessage, store]);
+
+  const handleChangeText = React.useCallback((text: string) => dispatch(updateUserInput(text)), [dispatch]);
 
   return (
     <KeyboardAvoidingView
@@ -53,7 +55,7 @@ export const UserInput: React.FC = () => {
               autoCompleteType="off"
               placeholder="Tell me about you in 20 words"
               value={inputText}
-              onChangeText={(text) => setInputText(text)}
+              onChangeText={handleChangeText}
             />
             <Button onPress={handlePressSubmit} isDisabled={!!incomingMessage || !inputText}>
               Submit

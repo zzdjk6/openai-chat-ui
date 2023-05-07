@@ -6,3 +6,5 @@ export const clearMessage = createAction("store/messages/clearMessage");
 export const removeLastMessage = createAction("store/messages/removeLastMessage");
 export const appendIncomingMessage = createAction<string>("store/messages/appendIncomingMessage");
 export const clearIncomingMessage = createAction("store/messages/clearIncomingMessage");
+
+export const updateUserInput = createAction<string>("store/message/updateUserInput");

@@ -7,16 +7,19 @@ import {
   clearIncomingMessage,
   clearMessage,
   removeLastMessage,
+  updateUserInput,
 } from "./messages.actions";
 
 type MessagesState = {
   messages: ChatCompletionRequestMessage[];
   incomingMessage: string;
+  userInput: string;
 };
 
 const initialState: MessagesState = {
   messages: [],
   incomingMessage: "",
+  userInput: "",
 };
 
 export const messagesReducer = createReducer(initialState, (builder) => {
@@ -35,5 +38,8 @@ export const messagesReducer = createReducer(initialState, (builder) => {
     })
     .addCase(clearIncomingMessage, (state) => {
       state.incomingMessage = "";
+    })
+    .addCase(updateUserInput, (state, action) => {
+      state.userInput = action.payload;
     });
 });

@@ -13,7 +13,7 @@ import { PromptsScreen } from "../../screens/prompts/PromptsScreen";
 import { SettingsScreen } from "../../screens/settings/SettingsScreen";
 
 export const FooterNavigation: React.FC = () => {
-  const [activeScreen, setActiveScreen] = React.useState(FooterNavigationScreen.Chat);
+  const [activeScreen, setActiveScreen] = React.useState(FooterNavigationScreen.Prompts);
 
   const { colorMode, setColorMode } = useColorMode();
 
