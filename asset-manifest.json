@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/openai-chat-ui/static/js/main.17f812f2.js",
-    "static/js/788.9dc7e375.js": "/openai-chat-ui/static/js/788.9dc7e375.js",
+    "main.js": "/openai-chat-ui/static/js/main.520d80b5.js",
+    "static/js/695.0edf79cb.js": "/openai-chat-ui/static/js/695.0edf79cb.js",
     "static/media/MaterialCommunityIcons.ttf": "/openai-chat-ui/static/media/MaterialCommunityIcons.5d42b4e60858731e7b65.ttf",
     "static/media/Ionicons.ttf": "/openai-chat-ui/static/media/Ionicons.3517aeaa34b2f8cd8eef.ttf",
     "static/media/MaterialIcons.ttf": "/openai-chat-ui/static/media/MaterialIcons.120b4c7bbd155bd0a04d.ttf",
@@ -12,11 +12,11 @@
     "favicon-16.png": "/openai-chat-ui/favicon-16.png",
     "manifest.json": "/openai-chat-ui/manifest.json",
     "serve.json": "/openai-chat-ui/serve.json",
-    "main.17f812f2.js.map": "/openai-chat-ui/static/js/main.17f812f2.js.map",
-    "788.9dc7e375.js.map": "/openai-chat-ui/static/js/788.9dc7e375.js.map"
+    "main.520d80b5.js.map": "/openai-chat-ui/static/js/main.520d80b5.js.map",
+    "695.0edf79cb.js.map": "/openai-chat-ui/static/js/695.0edf79cb.js.map"
   },
   "entrypoints": [
-    "static/js/788.9dc7e375.js",
-    "static/js/main.17f812f2.js"
+    "static/js/695.0edf79cb.js",
+    "static/js/main.520d80b5.js"
   ]
 }
